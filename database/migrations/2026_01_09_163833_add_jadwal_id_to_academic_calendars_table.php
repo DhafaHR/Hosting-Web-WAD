@@ -11,9 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('academic_calendars', function (Blueprint $table) {
-            $table->foreignId('mata_kuliah_id')->nullable()->constrained('mata_kuliahs')->onDelete('cascade');
-        });
+        // Removed erroneous column creation
     }
 
     /**
@@ -21,10 +19,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('academic_calendars', function (Blueprint $table) {
-            $table->dropForeign(['jadwal_id']);
-            $table->dropColumn('jadwal_id');
-        });
+        // Removed erroneous column drop
     }
 
     
