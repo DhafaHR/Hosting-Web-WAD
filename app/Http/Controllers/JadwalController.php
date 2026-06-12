@@ -82,7 +82,7 @@ class JadwalController extends Controller
 
         $data = [
             'dosen_id' => 1,
-            // 'mata_kuliah_id' => $request->mata_kuliah_id,
+            'mata_kuliah_id' => $request->mata_kuliah_id,
             'tanggal' => $request->tanggal,
             'waktu_mulai' => $request->waktu_mulai,
             'waktu_selesai' => $request->waktu_selesai,
@@ -127,7 +127,7 @@ class JadwalController extends Controller
         $validasi = $this->checkPrayerTimeConflict($request->tanggal, $request->waktu_mulai, $request->waktu_selesai);
 
         $dataUpdate = [
-            // 'mata_kuliah_id' => $request->mata_kuliah_id,
+            'mata_kuliah_id' => $request->mata_kuliah_id,
             'tanggal' => $request->tanggal,
             'waktu_mulai' => $request->waktu_mulai,
             'waktu_selesai' => $request->waktu_selesai,

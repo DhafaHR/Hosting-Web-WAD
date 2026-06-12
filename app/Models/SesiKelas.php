@@ -13,6 +13,7 @@ class SesiKelas extends Model
 
     protected $fillable = [
         'dosen_id',
+        'mata_kuliah_id',
         'mata_kuliah',
         'ruangan_kelas',
         'tanggal',
