@@ -42,10 +42,10 @@ class MataKuliahController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'kode_mk' => 'required_if:type,mk_only,both|unique:mata_kuliahs,kode_mk',
-            'nama_mk' => 'required_if:type,mk_only,both',
-            'sks' => 'required_if:type,mk_only,both|integer|min:1',
-            'nama_lab' => 'required_if:type,lab_only,both',
+            'kode_mk' => 'nullable|required_if:type,mk_only,both|unique:mata_kuliahs,kode_mk',
+            'nama_mk' => 'nullable|required_if:type,mk_only,both',
+            'sks' => 'nullable|required_if:type,mk_only,both|integer|min:1',
+            'nama_lab' => 'nullable|required_if:type,lab_only,both',
         ], [
             'kode_mk.unique' => 'Gagal! Kode Mata Kuliah sudah terdaftar.',
             'nama_mk.required_if' => 'Nama Mata Kuliah wajib diisi.',

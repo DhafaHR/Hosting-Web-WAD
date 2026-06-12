@@ -89,6 +89,10 @@
         @if (session('success'))
             Swal.fire({ icon: 'success', title: 'Berhasil!', text: "{{ session('success') }}", timer: 2000, showConfirmButton: false });
         @endif
+
+        @if ($errors->any())
+            Swal.fire({ icon: 'error', title: 'Gagal!', html: '{!! implode("<br>", $errors->all()) !!}', showConfirmButton: true });
+        @endif
     </script>
 
     @stack('scripts') {{-- Tempat script khusus halaman (seperti logic Modal/API Wilayah) --}}
