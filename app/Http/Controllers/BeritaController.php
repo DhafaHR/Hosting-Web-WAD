@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\berita;
+use App\Models\Berita;
 use App\Models\MataKuliah;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
@@ -14,7 +14,7 @@ class BeritaController extends Controller
     {
         Carbon::setLocale('id');
 
-        $query = berita::with('mataKuliah')->latest();
+        $query = Berita::with('mataKuliah')->latest();
 
         if ($request->has('filter_matkul') && $request->filter_matkul != '') {
             $query->where('mata_kuliah_id', $request->filter_matkul);
@@ -65,7 +65,7 @@ class BeritaController extends Controller
     }
     
     public function store(Request $request) {
-        berita::create([
+        Berita::create([
             'mata_kuliah_id' => $request->mata_kuliah_id,
             'judul' => $request->judul,
             'sumber' => $request->sumber,
@@ -78,13 +78,13 @@ class BeritaController extends Controller
     }
 
     public function update(Request $request, $id) {
-        $berita = berita::findOrFail($id);
+        $berita = Berita::findOrFail($id);
         $berita->update(['catatan_dosen' => $request->catatan_dosen]);
         return redirect()->back();
     }
 
     public function destroy($id) {
-        $berita = berita::findOrFail($id);
+        $berita = Berita::findOrFail($id);
         $berita->delete();
         return redirect()->back();
     }
@@ -93,7 +93,7 @@ class BeritaController extends Controller
     public function cetakPdf($id)
     {
         // Load relasi mataKuliah agar namanya bisa diambil di PDF
-        $berita = berita::with('mataKuliah')->findOrFail($id);
+        $berita = Berita::with('mataKuliah')->findOrFail($id);
         
         $pdf = Pdf::loadView('kliping.pdf_template', compact('berita'));
         return $pdf->download('Validasi-'.$berita->id.'.pdf');
@@ -102,7 +102,7 @@ class BeritaController extends Controller
     // --- UPDATE: CETAK REKAP DENGAN FILTER ---
     public function cetakSemuaPdf(Request $request)
     {
-        $query = berita::with('mataKuliah')->latest();
+        $query = Berita::with('mataKuliah')->latest();
         
         // Variable untuk Judul Header di PDF
         $infoMatkul = "Semua Mata Kuliah"; 
