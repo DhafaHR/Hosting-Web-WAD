@@ -88,15 +88,19 @@ class MataKuliahController extends Controller
         $mk = MataKuliah::findOrFail($id);
         $mk->update($request->only('kode_mk', 'nama_mk', 'sks'));
 
-        $mk->labs()->updateOrCreate(
-            ['mata_kuliah_id' => $id], // Key pencari
-            [
-                'nama_lab'  => $request->input('nama_lab'),
-                'kapasitas' => $request->input('kapasitas'),
-                'provinsi'  => $request->input('provinsi'),
-                'kota'      => $request->input('kota'),
-            ]
-        );
+        if ($request->filled('nama_lab')) {
+            $mk->labs()->updateOrCreate(
+                ['mata_kuliah_id' => $id], // Key pencari
+                [
+                    'nama_lab'  => $request->input('nama_lab'),
+                    'kapasitas' => $request->input('kapasitas'),
+                    'provinsi'  => $request->input('provinsi'),
+                    'kota'      => $request->input('kota'),
+                ]
+            );
+        } else {
+            $mk->labs()->delete();
+        }
 
     } else {
         
